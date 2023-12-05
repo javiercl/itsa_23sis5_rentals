@@ -1,0 +1,42 @@
+<html> 
+<head> 
+	<title>Rentas de pelicul</title> 
+</head> 
+<body> 
+	<h1>Categorias de peliculas</h1> 
+	<table> 
+        <thead> 
+            <tr> 
+            <th>ID</th> 
+            <th>Categoria</th> 
+            <th>Fecha de ultima actualización</th>  
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:1px solid black">{{ row[0] }}</td> 
+                <td style="border:1px solid black">{{ row[1] }}</td> 
+                <td style="border:1px solid black">{{ row[2] }}</td> 
+                <td style="border:1px solid black"> 
+                    <form action="/update" method="post"> 
+                        <input type="hidden" name="category_id" value="{{ row[0] }}"> 
+                        <input type="text" name="name" value="{{ row[1] }}"> 
+                        <input type="submit" value="Actualizar"> 
+                    </form> 
+                    <form action="/delete" method="post"> 
+                        <input type="hidden" name="category_id" value="{{ row[0] }}"> 
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table> 
+	<h2>Crea una nueva categoria</h2> 
+    <form action="/create" method="post"> 
+        <input type="text" name="name" placeholder="Categoria"> 
+        <input type="submit" value="Crear"> 
+	</form> 
+</body> 
+</html> 
