@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for, g, current_app
 import psycopg2 
 
 def index():
-
+#Hola profe cisneros 
 	with current_app.app_context():
 		db = current_app.db
 		user = current_app.user
