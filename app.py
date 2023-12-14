@@ -1,5 +1,5 @@
 from flask import Flask, current_app
-import home, category
+import home, category, film_category
 
 app = Flask(__name__) 
 
@@ -17,6 +17,7 @@ with app.app_context():
 
 app.add_url_rule('/','home', home.index)
 app.add_url_rule('/category','category', category.index)
+app.add_url_rule('/film_category','film_category', film_category.index)
 
 
 if __name__ == '__main__': 

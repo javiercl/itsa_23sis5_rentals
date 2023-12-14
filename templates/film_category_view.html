@@ -1,0 +1,64 @@
+<html> 
+<head> 
+	<title>Rentas de peliculas</title> 
+</head> 
+<body> 
+	<h1>Peliculas por Categorias</h1> 
+	<table style="border-collapse:collapse;"> 
+        <thead> 
+            <tr> 
+            <th>Categoria</th> 
+            <th>Pelicula</th> 
+            <th>Fecha de ultima actualización</th>  
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:1px solid black">{{ row[1] }}</td> 
+                <td style="border:1px solid black">{{ row[3] }}</td> 
+                <td style="border:1px solid black">{{ row[0] }}</td> 
+                <td style="border:1px solid black">{{ row[4] }}</td> 
+                <td style="border:1px solid black">{{ row[2] }}</td> 
+                <td style="border:1px solid black"> 
+                    <form action="/update" method="post"> 
+                        <label for="film_id">Choose a film:</label>
+                        <select name="film_id" id="film_id">
+                          {% for peli in pelis %} 
+                            {% if row[0] == peli[0] %}
+                                <option value="{{ peli[0] }}" selected >{{ peli[0] }} - {{ peli[1] }}</option>
+                            {% endif %}
+                            {% if row[0] != peli[0] %}
+                                <option value="{{ peli[0] }}" >{{ peli[0] }} - {{ peli[1] }}</option>
+                            {% endif %}
+                          {% endfor %} 
+                        </select>
+                        <br/>
+                        <label for="category_id">Choose a Category:</label>
+                        <select name="category_id" id="category_id">
+                          {% for categ in categs %} 
+                            <option value="{{ categ[0] }}">{{ categ[1] }}</option>
+                          {% endfor %} 
+                        </select> 
+                        <br/>
+                        <input type="submit" value="Actualizar"> 
+                    </form> 
+                    <form action="/delete" method="post"> 
+                        <input type="text" name="film_id" value="{{ row[0] }}"> 
+                        <input type="text" name="category_id" value="{{ row[1] }}"> 
+                        <br/>
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table> 
+	<h2>Crea una nueva relacion pelicula-categoria</h2> 
+    <form action="/create" method="post"> 
+        <input type="text" name="film_id" placeholder="Pelicula"> 
+        <input type="text" name="category_id" placeholder="Categoria"> 
+        <input type="submit" value="Crear"> 
+	</form> 
+</body> 
+</html> 

@@ -20,16 +20,26 @@ def index():
 	cur = conn.cursor() 
 
 	# Select all products from the table 
-	cur.execute('''SELECT * FROM category''') 
+	cur.execute('''SELECT fc.film_id, fc.category_id, fc.last_update, c.name, f.title FROM category c, film f, film_category fc WHERE c.category_id=fc.category_id and f.film_id=fc.film_id order by c.name, f.title''') 
 
 	# Fetch the data 
 	datax = cur.fetchall() 
+
+	# Select all products from the table 
+	cur.execute('''SELECT film_id, title FROM film order by title''') 
+	# Fetch the data 
+	pelis = cur.fetchall() 
+
+	# Select all products from the table 
+	cur.execute('''SELECT category_id, name FROM category order by name''') 
+	# Fetch the data 
+	categs = cur.fetchall() 
 
 	# close the cursor and connection 
 	cur.close() 
 	conn.close() 
 
-	return render_template('category_view.html', data=datax) 
+	return render_template('film_category_view.html', data=datax, pelis=pelis, categs=categs) 
 
 
 def create():
@@ -46,10 +56,11 @@ def create():
 	cur = conn.cursor() 
 
 	# Get the data from the form 
-	name = request.form['name'] 
+	film_id = request.form['film_id'] 
+	category_id = request.form['category_id'] 
 
 	# Insert the data into the table 
-	cur.execute(f"INSERT INTO category (name) VALUES ('{name}')") 
+	cur.execute(f"INSERT INTO film_category (film_id,category_id) VALUES ({film_id},{category_id})") 
 
 	# commit the changes 
 	conn.commit() 
@@ -58,7 +69,7 @@ def create():
 	cur.close() 
 	conn.close() 
 
-	return redirect(url_for('category.index')) 
+	return redirect(url_for('film_category.index')) 
 
 
 def update():
@@ -75,15 +86,15 @@ def update():
 	cur = conn.cursor() 
 
 	# Get the data from the form 
-	name = request.form['name'] 
-	id = request.form['category_id'] 
+	film_id = request.form['film_id'] 
+	category_id = request.form['category_id'] 
 
 	# Update the data in the table 
-	cur.execute(f"UPDATE category SET name='{name}' WHERE category_id={id}")
+	cur.execute(f"UPDATE category SET name='{film_id,category_id}' WHERE film_id={film_id} and category_id={category_id}")
 
 	# commit the changes 
 	conn.commit() 
-	return redirect(url_for('category.index')) 
+	return redirect(url_for('film_category.index')) 
 
 
 def delete():
@@ -99,10 +110,11 @@ def delete():
 	cur = conn.cursor() 
 
 	# Get the data from the form 
-	id = request.form['category_id'] 
+	film_id = request.form['film_id'] 
+	category_id = request.form['category_id'] 
 
 	# Delete the data from the table 
-	cur.execute(f"DELETE FROM category WHERE category_id={id}") 
+	cur.execute(f"DELETE FROM category WHERE film_id={film_id} and category_id={category_id}") 
 
 	# commit the changes 
 	conn.commit() 
@@ -111,4 +123,4 @@ def delete():
 	cur.close() 
 	conn.close() 
 
-	return redirect(url_for('category.index')) 
+	return redirect(url_for('film_category.index')) 
