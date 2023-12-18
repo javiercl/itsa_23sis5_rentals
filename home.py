@@ -6,5 +6,6 @@ def index():
     # Modifico algo
     # Hola soy yo
     # Ahora yo modifico
-    # Ahora yo no modifico :p
+    # Ahora yo no modifico :p 
+    # Otra vez soy yo
 	return render_template('home_view.html') 
