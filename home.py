@@ -6,6 +6,6 @@ def index():
     # Modifico algo
     # Hola soy yo
     # Ahora yo modifico
-     
+    #Selena Gomez By kike
 	return render_template('home_view.html') 
 #hello
