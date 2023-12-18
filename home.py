@@ -6,4 +6,5 @@ def index():
     # Modifico algo
     # Hola soy yo
     # Ahora yo modifico
+    # Este comentario es el mas reciente JACL
 	return render_template('home_view.html') 
