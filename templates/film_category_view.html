@@ -3,7 +3,9 @@
 	<title>Rentas de peliculas</title> 
 </head> 
 <body> 
-	<h1>Peliculas por Categorias</h1> 
+	<h1>Peliculas por Categorias</h1>
+    {{ pagination.info }}
+    {{ pagination.links }}
 	<table style="border-collapse:collapse;"> 
         <thead> 
             <tr> 
@@ -21,7 +23,7 @@
                 <td style="border:1px solid black">{{ row[4] }}</td> 
                 <td style="border:1px solid black">{{ row[2] }}</td> 
                 <td style="border:1px solid black"> 
-                    <form action="/update" method="post"> 
+                    <form action="/film_category/update" method="post"> 
                         <label for="film_id">Choose a film:</label>
                         <select name="film_id" id="film_id">
                           {% for peli in pelis %} 
@@ -43,7 +45,7 @@
                         <br/>
                         <input type="submit" value="Actualizar"> 
                     </form> 
-                    <form action="/delete" method="post"> 
+                    <form action="/film_category/delete" method="post"> 
                         <input type="text" name="film_id" value="{{ row[0] }}"> 
                         <input type="text" name="category_id" value="{{ row[1] }}"> 
                         <br/>
@@ -53,12 +55,13 @@
             </tr> 
             {% endfor %} 
         </tbody> 
-	</table> 
+	</table>
 	<h2>Crea una nueva relacion pelicula-categoria</h2> 
-    <form action="/create" method="post"> 
+    <form action="/film_category/create" method="post"> 
         <input type="text" name="film_id" placeholder="Pelicula"> 
         <input type="text" name="category_id" placeholder="Categoria"> 
         <input type="submit" value="Crear"> 
-	</form> 
+	</form>
+    {{ pagination.links }}
 </body> 
 </html> 

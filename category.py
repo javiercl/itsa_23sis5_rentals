@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, g, current_app
 #import logging
 import psycopg2 
 
+
 def index():
 
 	with current_app.app_context():
@@ -9,11 +10,11 @@ def index():
 		user = current_app.user
 		passw = current_app.passw
 		server = current_app.server
-  
+
 	#logging.basicConfig(level=logging.DEBUG)
 	#current_app.logger.info(f"Base de datos {db}")
 	
-   	# Connect to the database 
+	# Connect to the database 
 	conn = psycopg2.connect(database=db, user=user, password=passw, host=server, port="5432") 
 
 	# create a cursor 
@@ -33,14 +34,14 @@ def index():
 
 
 def create():
-    
+	
 	with current_app.app_context():
 		db = current_app.db
 		user = current_app.user
 		passw = current_app.passw
 		server = current_app.server
 	
- 	# Connect to the database 
+	# Connect to the database 
 	conn = psycopg2.connect(database=db, user=user, password=passw, host=server, port="5432") 
 
 	cur = conn.cursor() 
@@ -58,17 +59,17 @@ def create():
 	cur.close() 
 	conn.close() 
 
-	return redirect(url_for('category.index')) 
+	return redirect(url_for('category')) 
 
 
 def update():
-    
+	
 	with current_app.app_context():
 		db = current_app.db
 		user = current_app.user
 		passw = current_app.passw
 		server = current_app.server
- 
+
 	# Connect to the database 
 	conn = psycopg2.connect(database=db, user=user, password=passw, host=server, port="5432") 
 
@@ -83,17 +84,20 @@ def update():
 
 	# commit the changes 
 	conn.commit() 
-	return redirect(url_for('category.index')) 
+	cur.close() 
+	conn.close() 
+ 
+	return redirect(url_for('category')) 
 
 
 def delete():
-    
+	
 	with current_app.app_context():
 		db = current_app.db
 		user = current_app.user
 		passw = current_app.passw
 		server = current_app.server
- 
+
 	# Connect to the database 
 	conn = psycopg2.connect(database=db, user=user, password=passw, host=server, port="5432") 
 	cur = conn.cursor() 
@@ -111,4 +115,4 @@ def delete():
 	cur.close() 
 	conn.close() 
 
-	return redirect(url_for('category.index')) 
+	return redirect(url_for('category')) 
