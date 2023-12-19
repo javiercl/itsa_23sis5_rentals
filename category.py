@@ -4,7 +4,7 @@ import psycopg2
 
 
 def index():
-
+#Hola profe cisneros 
 	with current_app.app_context():
 		db = current_app.db
 		user = current_app.user
