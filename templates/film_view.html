@@ -1,0 +1,152 @@
+<html> 
+<head> 
+	<title>Rentas de peliculas</title> 
+</head> 
+<body> 
+	<h1>Peliculas:</h1> 
+	<table style="border-collapse:collapse;"> 
+        <thead> 
+            <tr>
+            <th>ID</th> 
+            <th>Pelicula</th>
+            <th>Lanzamiento</th> 
+            <th>Idioma</th> 
+            <th>Categoria</th>
+            <th>Descripción</th>
+            <th>Duración</th>
+            <th>Rating</th>
+            <th>Caract especiales</th>
+            <th>Actualizar/Eliminar</th> 
+            </tr> 
+        </thead>
+    <h1>Buscar Pelicula:</h1>
+
+    <form action="/film/search" method="post">
+        <label for="search_query">Buscar:</label>
+        <input type="text" id="search_query" name="buscar" placeholder="Ingresa tu búsqueda">
+        <input type="submit" value="Buscar">
+    </form>
+        <tbody> 
+            {% for row in data %} 
+            <tr>
+                <td style="border:1px solid black">{{ row[0] }}</td>
+                <td style="border:1px solid black">{{ row[1] }}</td>
+                <td style="border:1px solid black">{{ row[2] }}</td>
+                <td style="border:1px solid black">{{ row[3] }}</td>
+                <td style="border:1px solid black">{{ row[4] }}</td>
+                <td style="border:1px solid black">{{ row[5] }}</td>
+                <td style="border:1px solid black">{{ row[6] }}</td>
+                <td style="border:1px solid black">{{ row[10] }}</td>
+                <td style="border:1px solid black">{{ row[11] }}</td>
+                
+                <td style="border:1px solid black"> 
+                    <form action="/film/update" method="post"> 
+                        <label for="film_id">Pelicula:</label>
+                        <input type="text" name="title" value="{{ row[1] }}">
+                        <input type="hidden" name ="id_film" value="{{row[0]}}">
+                        <br/>
+                        <label for="category_id">Categoria:</label>
+                        <select name="category_id" id="category_id">
+                          {% for categ in category %} 
+                            <option value="{{ categ[0] }}">{{ categ[1] }}</option>
+                          {% endfor %} 
+                        </select>
+                        <br>
+                        <label for="description">Descripción:</label>
+                        <br>
+                        <textarea name="descrip" placeholder="Descripción" required></textarea>
+                        <br>
+                        <label for="release_year">Año de lanzamiento:</label>
+                        <input type="number" name="release_year" placeholder="Año de lanzamiento" required>
+                        <br>
+                        <label for="language_id">Idioma:</label>
+                        <select name="id_lang" id="numero">
+                            <!-- Lista desplegable de idiomas -->
+                            {% for idioma in idems %}
+                                <option value="{{idioma[0]}}">{{ idioma[1] }}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                        <label for="rental_duration">Duración de alquiler:</label>
+                        <input type="number" name="rental_duration" placeholder="Duración de alquiler" required>
+                        <br>
+                        <label for="rental_rate">Tarifa de alquiler:</label>
+                        <input type="number" step="0.01" name="rental_rate" placeholder="Tarifa de alquiler" required>
+                        <br>
+                        <label for="length">Duración:</label>
+                        <input type="number" name="length" placeholder="Duración">
+                        <br>
+                        <label for="replacement_cost">Costo de reemplazo:</label>
+                        <input type="number" step="0.01" name="replacement_cost" placeholder="Costo de reemplazo" required>
+                        <br>
+                        <label for="rating">Clasificación:</label>
+                        <input type="text" name="rating" placeholder="Clasificación">
+                        <br>
+                        <label for="special_features">Características especiales (separadas por coma):</label>
+                        <br>
+                        <textarea name="special_features" placeholder="Ejemplo: Acción, Aventura, Comedia"></textarea>
+                        <br>
+                        <input type="submit" value="Actualizar"> 
+                    </form> 
+                    <form action="/film/delete" method="post"> 
+                        <input type="hidden" name="film_id" value="{{ row[0] }}"> 
+                        <br/>
+                        <label>Eliminar Pelicula</label>
+                        <br>
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table> 
+	<h2>Añade una pelicula</h2> 
+    <form action="/film/create" method="post"> 
+    <label for="title">Título de la película:</label>
+    <input type="text" name="title" placeholder="Título" required>
+    <label for="category_id">Categoria:</label>
+    <select name="category_id" id="category_id">
+      {% for categ in category %} 
+        <option value="{{ categ[0] }}">{{ categ[1] }}</option>
+      {% endfor %} 
+    </select>
+    <br>
+    <label for="description">Descripción:</label>
+    <br>
+    <textarea name="description" placeholder="Descripción" required></textarea>
+    <br>
+    <label for="release_year">Año de lanzamiento:</label>
+    <input type="number" name="release_year" placeholder="Año de lanzamiento" required>
+    
+    <label for="language_id">Idioma:</label>
+    <select name="numero" id="numero">
+        <!-- Lista desplegable de idiomas -->
+        {% for idioma in idems %}
+            <option value="{{idioma[0]}}">{{ idioma[1] }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="rental_duration">Duración de alquiler:</label>
+    <input type="number" name="rental_duration" placeholder="Duración de alquiler" required>
+    
+    <label for="rental_rate">Tarifa de alquiler:</label>
+    <input type="number" step="0.01" name="rental_rate" placeholder="Tarifa de alquiler" required>
+    <br>
+    <label for="length">Duración:</label>
+    <input type="number" name="length" placeholder="Duración">
+    
+    <label for="replacement_cost">Costo de reemplazo:</label>
+    <input type="number" step="0.01" name="replacement_cost" placeholder="Costo de reemplazo" required>
+    <br>
+    <label for="rating">Clasificación:</label>
+    <input type="text" name="rating" placeholder="Clasificación">
+    <br>
+    <label for="special_features">Características especiales (separadas por coma):</label>
+    <br>
+    <textarea name="special_features" placeholder="Ejemplo: Acción, Aventura, Comedia"></textarea>
+    <br>
+    <br>
+    <input type="submit" value="Añadir pelicula">
+	</form> 
+</body> 
+</html> 
