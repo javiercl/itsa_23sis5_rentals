@@ -1,5 +1,5 @@
 from flask import Flask, current_app
-import home, category, film_category,language,film
+import home, category, film_category,language,film,inventory
 
 app = Flask(__name__) 
 
@@ -40,6 +40,12 @@ app.add_url_rule('/language','language_view', language.index, methods = ['GET'])
 app.add_url_rule('/language/create','language_create', language.create, methods = ['POST'])
 app.add_url_rule('/language/update','language_update', language.update, methods = ['POST'])
 app.add_url_rule('/language/delete','language_delete', language.delete, methods = ['POST'])
+
+app.add_url_rule('/inventory','inventory', inventory.index, defaults={'page2': 1}, methods = ['GET'])
+app.add_url_rule('/inventory/<page2>','inventory', inventory.index, methods = ['GET'])
+app.add_url_rule('/inventory/create','inventory_create', inventory.create, methods = ['POST'])
+app.add_url_rule('/inventory/update','inventory_update', inventory.update, methods = ['POST'])
+app.add_url_rule('/inventory/delete','inventory_delete', inventory.delete, methods = ['POST'])
 
 if __name__ == '__main__': 
 	app.run(debug=True) 

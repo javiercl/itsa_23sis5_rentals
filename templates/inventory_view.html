@@ -1,0 +1,75 @@
+<html> 
+<head> 
+	<title>Inventario</title> 
+</head> 
+<body> 
+	<h1>Inventario</h1>
+    {{ pagination.info }}
+    {{ pagination.links }}
+	<table style="border-collapse:collapse;"> 
+        <thead> 
+            <tr> 
+            <th>Inventorio ID</th> 
+            <th>Titulo</th> 
+            <th>Tienda ID</th> 
+            <th>Fecha de ultima actualización</th>  
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:1px solid black">{{ row[0] }}</td> 
+                <td style="border:1px solid black">{{ row[4] }}</td> 
+                <td style="border:1px solid black">{{ row[2] }}</td> 
+                <td style="border:1px solid black">{{ row[3] }}</td> 
+                <td style="border:1px solid black"> 
+                    <form action="/inventory/update" method="post"> 
+                        <label for="inventory_id">inventario ID: </label>
+                        <input type="text" name="inventory_id" id="inventory_id" value="{{ row[0] }}" readonly onmousedown="return false;" />
+                        <br/>
+                        <label for="film_id">Titulo: </label>
+                        <select name="film_id" id="film_id">
+                          {% for peli in pelis %} 
+                            {% if row[1] == peli[0] %}
+                                <option value="{{ peli[0] }}" selected >{{ peli[0] }} - {{ peli[1] }}</option>
+                            {% endif %}
+                            {% if row[1] != peli[0] %}
+                                <option value="{{ peli[0] }}" >{{ peli[0] }} - {{ peli[1] }}</option>
+                            {% endif %}
+                          {% endfor %} 
+                        </select>
+                        <br/>
+                        <label for="store_id">Tienda ID: </label>
+                        <select name="store_id" id="store_id">
+                            {% for store2 in store %} 
+                              {% if row[2] == store2[0] %}
+                                  <option value="{{ store2[0] }}" selected >{{ store2[0] }}</option>
+                              {% endif %}
+                              {% if row[2] != store2[0] %}
+                                  <option value="{{ store2[0] }}" >{{ store2[0] }}</option>
+                              {% endif %}
+                            {% endfor %} 
+                          </select>
+                          <br/>
+                        <input type="submit" value="Actualizar"> 
+                    </form> 
+                    <form action="/inventory/delete" method="post"> 
+                        <label for="inventory_id">Inventario ID: </label>
+                        <input type="text" name="inventory_id" value="{{ row[0] }}"> 
+                        <br/>
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table>
+	<h2>Crea un nuevo inventario</h2> 
+    <form action="/inventory/create" method="post"> 
+        <input type="text" name="film_id" placeholder="Pelicula ID">
+        <input type="text" name="store_id" placeholder="Tienda ID"> 
+        <input type="submit" value="Crear"> 
+	</form>
+    {{ pagination.links }}
+</body> 
+</html> 
