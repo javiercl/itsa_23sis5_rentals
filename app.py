@@ -1,5 +1,5 @@
 from flask import Flask, current_app
-import home, category, film_category,language,film
+import home, category, film_category,language,film,customer
 
 app = Flask(__name__) 
 
@@ -35,7 +35,7 @@ app.add_url_rule('/film/search','film_search', film.search, methods = ['POST'])
 app.add_url_rule('/film/create','film_create', film.create, methods = ['POST'])
 app.add_url_rule('/film/update','film_update', film.update, methods = ['POST'])
 app.add_url_rule('/film/delete','film_delete', film.delete, methods = ['POST'])
-
+#Modificacion en la clase lenguaje
 app.add_url_rule('/language','language_view', language.index, methods = ['GET'])
 app.add_url_rule('/language/create','language_create', language.create, methods = ['POST'])
 app.add_url_rule('/language/update','language_update', language.update, methods = ['POST'])
