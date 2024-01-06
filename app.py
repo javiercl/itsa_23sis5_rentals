@@ -1,5 +1,5 @@
 from flask import Flask, current_app
-import home, category, film_category,language,film,inventory
+import home, category, film_category,language,film,inventory, customer 
 
 app = Flask(__name__) 
 
