@@ -1,0 +1,96 @@
+<html> 
+<head> 
+	<title>Rentas de peliculas</title> 
+</head> 
+<body> 
+	<h1>Clientes</h1> 
+	<table> 
+        <thead> 
+            <tr> 
+            <th>ID</th> 
+            <th>Id Tienda</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Id Dirección</th>
+            <th>Estado Activo</th>
+            <th>Activo</th>
+            <th>Dirección</th>
+            <th>Distrito</th>
+            <th>Código postal</th>
+            <th>Celular</th>
+            <th>Modificar/Eliminar</th>
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:1px solid black">{{ row[0] }}</td> 
+                <td style="border:1px solid black">{{ row[1] }}</td> 
+                <td style="border:1px solid black">{{ row[2] }}</td>
+                <td style="border:1px solid black">{{ row[3] }}</td>
+                <td style="border:1px solid black">{{ row[4] }}</td>
+                <td style="border:1px solid black">{{ row[5] }}</td>
+                <td style="border:1px solid black">{{ row[6] }}</td>
+                <td style="border:1px solid black">{{ row[7] }}</td>
+                <td style="border:1px solid black">{{ row[8] }}</td>
+                <td style="border:1px solid black">{{ row[9] }}</td>
+                <td style="border:1px solid black">{{ row[10] }}</td>
+                <td style="border:1px solid black">{{ row[11] }}</td>
+                <td style="border:1px solid black"> 
+                    <form action="/customer/update" method="post">
+                        <input type="hidden" name="customer_id" value="{{ row[0] }}">
+                        
+                        <label for="first_name">Nombre:</label>
+                        <input type="text" name="first_name" value="{{ row[2] }}" required>
+                        <br>
+                        <label for="last_name">Apellido:</label>
+                        <input type="text" name="last_name" value="{{ row[3] }}" required>
+                        <br>
+                        <label for="email">Correo Electrónico:</label>
+                        <br>
+                        <input type="email" name="email" value="{{ row[4] }}">
+                        <br>
+                        <input type="submit" value="Actualizar">
+                    </form>
+                    <form action="/customer/delete" method="post"> 
+                        <label>Eliminar cliente:</label>
+                        <input type="hidden" name="customer_id" value="{{ row[0] }}">
+                        <br>
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table> 
+	<h2>Añade un nuevo Cliente:</h2> 
+    <form action="/customer/create" method="post">
+        <!-- store_id -->
+        <label for="store_id">Tienda:</label>
+        <input type="text" name="store_id" required>
+        <br>
+        <!-- first_name -->
+        <label for="first_name">Nombre:</label>
+        <input type="text" name="first_name" required>
+    
+        <!-- last_name -->
+        <label for="last_name">Apellido:</label>
+        <input type="text" name="last_name" required>
+        <br>
+        <!-- email -->
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" name="email">
+        <br>
+        <!-- address_id -->
+        <label for="address_id">Dirección:</label>
+        <input type="text" name="address_id" required>
+        <br>
+        <!-- activebool -->
+        <label for="activebool">Activo:</label>
+        <input type="checkbox" name="activebool" checked>
+        <br>
+        <input type="submit" value="Crear">
+    </form>
+</body> 
+</html> 
