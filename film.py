@@ -8,7 +8,6 @@ import psycopg2
 	Walter Jahir Ambriz Reyna
 	Ana Laura Cortez Cortes
 	Daniel Alejandro Gonzalez Rodriguez
-	
 '''
 def search():
     with current_app.app_context():
