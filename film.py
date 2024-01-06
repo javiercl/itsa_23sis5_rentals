@@ -2,11 +2,13 @@ from flask import render_template, request, redirect, url_for, g, current_app
 import psycopg2 
 #?imagen del esquema de la base de datos
 #? https://www.postgresqltutorial.com/wp-content/uploads/2018/03/dvd-rental-sample-database-diagram.png
+
 '''
 	Equipo #2:
 	Walter Jahir Ambriz Reyna
 	Ana Laura Cortez Cortes
 	Daniel Alejandro Gonzalez Rodriguez
+	
 '''
 def search():
     with current_app.app_context():
