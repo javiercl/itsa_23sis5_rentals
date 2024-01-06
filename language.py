@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, g, current_app
 import psycopg2 
 
 '''
+	Equipo #2:
 	Walter Jahir Ambriz Reyna
 	Ana Laura Cortez Cortes
 	Daniel Alejandro Gonzalez Rodriguez
