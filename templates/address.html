@@ -1,0 +1,74 @@
+<html> 
+<head> 
+	<title>Direcciones</title> 
+</head> 
+<body> 
+	<h1>Direcciones</h1> 
+	<table  border="n" style="width:100%; border-collapse:collapse;">
+        
+        <thead> 
+            <tr> 
+            <th>ID</th> 
+            <th>Address</th> 
+            <th>Address2</th>  
+            <th>district</th>
+            <th>city_id</th>
+            <th>postal_code</th>
+            <th>phone</th>
+            <th></th>
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:1px solid black">{{ row[0] }}</td> 
+                <td style="border:1px solid black">{{ row[1] }}</td> 
+                <td style="border:1px solid black">{{ row[2] }}</td> 
+                <td style="border:1px solid black">{{ row[3] }}</td> 
+                <td style="border:1px solid black">{{ row[4] }}</td> 
+                <td style="border:1px solid black">{{ row[5] }}</td> 
+                <td style="border:1px solid black">{{ row[6] }}</td> 
+                <td style="border:1px solid black"> 
+                    <form action="/update" method="post"> 
+                        <input type="hidden" name="address_id" value="{{ row[0] }}"> 
+                        <input type="text" name="address" value="{{ row[1] }}"> 
+                        <input type="text" name="address2" value="{{ row[2] }}"> 
+                        <input type="text" name="district" value="{{ row[3] }}"> 
+                        <select name="city_id">
+                            {% for city_id_option in city_ids %}
+                                {% if city_id_option == row[4] %}
+                                    <option value="{{ city_id_option }}" selected>{{ city_id_option }}</option>
+                                {% else %}
+                                    <option value="{{ city_id_option }}">{{ city_id_option }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <input type="text" name="postal_code" value="{{ row[5] }}"> 
+                        <input type="text" name="phone" value="{{ row[6] }}"> 
+                        <input type="submit" value="Actualizar"> 
+                    </form> 
+                    <form action="/delete" method="post"> 
+                        <input type="hidden" name="address_id" value="{{ row[0] }}"> 
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table> 
+	<h2>Crea una nueva direccion</h2> 
+    <form action="/create" method="post"> 
+        <input type="text" name="address" placeholder="Direccion"> 
+        <input type="text" name="address2" placeholder="Direccion2"> 
+        <input type="text" name="district" placeholder="District"> 
+        <select name="city_id">
+            {% for city_id_option in city_ids %}
+            <option value="{{ city_id_option }}">{{ city_id_option }}</option>
+            {% endfor %}   
+        </select>        
+        <input type="text" name="postal_code" placeholder="Codigo Postal"> 
+        <input type="text" name="phone" placeholder="Celular"> 
+        <input type="submit" value="Crear"> 
+	</form> 
+</body> 
+</html>
