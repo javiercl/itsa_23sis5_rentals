@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for 
 import psycopg2 
-
+#YULIANA JANETH RODRIGUEZ BARAJAS
 app = Flask(__name__) 
 
 db = 'dvdrental'
