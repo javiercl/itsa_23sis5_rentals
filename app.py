@@ -1,5 +1,5 @@
 from flask import Flask, current_app
-import home, category, film_category,language,film,inventory, customer 
+import home, category, film_category,language,film,inventory, customer, payment
 
 app = Flask(__name__) 
 
@@ -51,6 +51,14 @@ app.add_url_rule('/customer','customer_view', customer.index, methods = ['GET'])
 app.add_url_rule('/customer/create','customer_create', customer.create, methods = ['POST'])
 app.add_url_rule('/customer/update','customer_update', customer.update, methods = ['POST'])
 app.add_url_rule('/customer/delete','customer_delete', customer.delete, methods = ['POST'])
+
+#Tabla payment agregada por el equipo de Angel Venegas Hernández Y Monserrat Naranjo Mercado
+app.add_url_rule('/payment','payment', payment.index, defaults={'page3': 1}, methods = ['GET'])
+app.add_url_rule('/payment/<page3>','payment', payment.index, methods = ['GET'])
+app.add_url_rule('/payment/create','payment_create', payment.create, methods = ['POST'])
+app.add_url_rule('/payment/update','payment_update', payment.update, methods = ['POST'])
+app.add_url_rule('/payment/delete','payment_delete', payment.delete, methods = ['POST'])
+
 
 if __name__ == '__main__': 
 	app.run(debug=True) 
