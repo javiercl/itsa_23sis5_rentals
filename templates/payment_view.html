@@ -1,0 +1,99 @@
+<html> 
+<head> 
+	<title>Payment</title> 
+</head> 
+<body> 
+	<h1>Payment</h1>
+    {{ pagination.info }}
+    {{ pagination.links }}
+    <h2>Crea un nuevo pago</h2> 
+    <form action="/payment/create" method="post"> 
+        <label for="category_id">Seleccione el Cliente:</label>
+        <select name="crear_pago" id="crear_pago">
+            {% for customer in customers %} 
+                  <option value="{{ customer[0] }}" >{{ customer[0] }} - {{ customer[1] }}</option>
+            {% endfor %} 
+        </select>
+        <br/>
+        <label for="category_id">Seleccione el Staff:</label>
+        <select name="crear_staff" id="crear_staff">
+            {% for staff in staffs %} 
+                  <option value="{{ staff[0] }}" >{{ staff[0] }} - {{staff[1]}}</option>
+            {% endfor %} 
+        </select>
+        <br/>
+        <label for="category_id">Seleccione la renta:</label>
+        <select name="crear_renta" id="crear_renta">
+            {% for renta in rentas %} 
+                  <option value="{{ renta[0] }}" >{{ renta[0] }}</option>
+            {% endfor %} 
+        </select>
+        <br/>
+        <label for="category_id">Ingrese el pago:</label>
+        <input type="text" name="precio" placeholder="Precio:">
+        <input type="submit" value="Crear"> 
+	</form>
+
+	<table style="border-collapse:collapse;"> 
+        <thead> 
+            <tr> 
+            <th>Payment ID</th> 
+            <th>Customer</th> 
+            <th>Staff ID</th> 
+            <th>Rental ID</th>  
+            <th>Amount</th>
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:1px solid black">{{ row[0] }}</td> 
+				<td style="border:1px solid black">{{ row[1] }}</td> 
+				<td style="border:1px solid black">{{ row[2] }}</td> 
+				<td style="border:1px solid black">{{ row[3] }}</td> 
+				<td style="border:1px solid black">{{ row[4] }}</td> 
+                <td style="border:1px solid black"> 
+                    <form action="/payment/update" method="post"> 
+                        <label for="payment_id">Payment ID: </label>
+                        <input type="text" name="payment_id" id="payment_id" value="{{ row[0] }}" readonly onmousedown="return false;" />
+                        <br/>
+                        <label for="customer_id">Cliente: </label>
+                        <select name="customer_id" id="customer_id">
+                          {% for customer in customers %} 
+                            {% if row[5] == customer[0] %}
+                                <option value="{{ customer[0] }}" selected >{{ customer[0] }} - {{ customer[1] }}</option>
+                            {% endif %}
+                            {% if row[5] != customer[0] %}
+                                <option value="{{ customer[0] }}" >{{ customer[0] }} - {{ customer[1] }}</option>
+                            {% endif %}
+                          {% endfor %} 
+                        </select>
+                        <br/>
+                        <label for="staff_id">Staff: </label>
+                        <select name="staff_id" id="staff_id">
+                            {% for staff in staffs %} 
+                              {% if row[6] == staff[0] %}
+                                  <option value="{{ staff[0] }}" selected >{{ staff[0] }} - {{staff[1]}}</option>
+                              {% endif %}
+                              {% if row[6] != staff[0] %}
+                                  <option value="{{ staff[0] }}" >{{ staff[0] }} - {{staff[1]}}</option>
+                              {% endif %}
+                            {% endfor %} 
+                          </select>
+                          <br/>
+                        <input type="submit" value="Actualizar"> 
+                    </form> 
+                    <form action="/payment/delete" method="post"> 
+                        <label for="payment_id">Pago ID: </label>
+                        <input type="text" name="payment_id" value="{{ row[0] }}" readonly onmousedown="return false;" />
+                        <br/>
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table>
+    {{ pagination.links }}
+</body> 
+</html> 
