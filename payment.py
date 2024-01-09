@@ -3,7 +3,10 @@ from flask_paginate import Pagination, get_page_parameter
 import psycopg2
 import logging
 '''
-
+TABLA DE PAYMENT
+EQUIPO 11
+ANGEL VENEGAS HERNANDEZ
+MONSERRAT NARANJO MERCADO
 '''
 def index(page3):
 
