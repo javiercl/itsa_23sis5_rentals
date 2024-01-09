@@ -30,7 +30,7 @@ def index():
 
     cur.close()
     conn.close()
-    return render_template('index.html', data=data, city_ids=city_ids)
+    return render_template('address.html', data=data, city_ids=city_ids)
 
 
 
