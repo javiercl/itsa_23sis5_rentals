@@ -1,0 +1,71 @@
+<html> 
+<head> 
+	<title>Rentas de pelicul</title> 
+</head> 
+<body> 
+	<h1>Ciudades</h1> 
+    {{ pagination.info }}
+    {{ pagination.links }}
+    <table style="border-collapse:collapse;"> 
+
+        <thead> 
+            <tr> 
+            <th>City_id</th> 
+            <th>City</th> 
+            <th>Country</th>  
+            <th>last_update</th> 
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:1px solid black">{{ row[0] }}</td> 
+                <td style="border:1px solid black">{{ row[1] }}</td> 
+                <td style="border:1px solid black">{{ row[2] }}</td> 
+                <td style="border:1px solid black">{{ row[3] }}</td> 
+                <td style="border:1px solid black"> 
+                    <form action="/city/update" method="post"> 
+                        <input type="hidden" name="city_id" value="{{ row[0] }}"> 
+                        <select name="city"> 
+                            {%for i in data%} 
+                            {%if i[1]==row[1]%}
+                             <option value="{{i[1]}}" selected>{{i[1]}}</option>
+                             {%endif%}
+                             {%if i[1]!=row[1]%}
+                             <option value="{{i[1]}}">{{i[1]}}</option>
+                             {%endif%}
+                             {%endfor%}
+
+                         </select>
+
+                         <select name="country_id"> 
+                            {%for i in data%} 
+                            {%if i[4]==row[5]%}
+                             <option value="{{i[4]}}" selected>{{i[2]}}</option>
+                             {%endif%}
+                             {%if i[4]!=row[5]%}
+                             <option value="{{i[4]}}">{{i[2]}}</option>
+                             {%endif%}
+                             {%endfor%}
+
+                         </select>
+                        <!--<input type="text" name="city" value="{{ row[1] }}"> -->
+                        <input type="submit" value="Actualizar"> 
+                    </form> 
+                    <form action="/city/delete" method="post"> 
+                        <input type="hidden" name="city_id" value="{{ row[0] }}"> 
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table> 
+	<h2>Crea una nueva ciudad</h2> 
+    <form action="/city/create" method="post"> 
+        <input type="text" name="name" placeholder="Ciudad"> 
+        <input type="submit" value="Crear"> 
+	</form> 
+    {{ pagination.links }}
+</body> 
+</html>
