@@ -1,21 +1,36 @@
-<html> 
-<head> 
-	<title>Rentas de peliculas</title> 
-</head> 
-<body> 
-	<h1>Menu Principal</h1> 
-    <a href="/category">Categorias</a>
-    <br/>
-    <a href="/film_category">Peliculas por Categoria</a>
-    <br/>
-    <a href="/film">Peliculas</a>
-    <br/>
-    <a href="/language">Lenguajes</a>
-    <br/>
-    <a href="/inventory">Inventario</a>
-    <br/>
-    <a href="/customer">Clientes</a>
-    <br/>
-    <a href="/payment">Payment</a>
-</body> 
-</html> 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Aplicación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="header">
+        <img class="center-img" src="{{ url_for('static', filename='images/pal.jpeg') }}" alt="Imagen Centro">
+    </div>
+
+    <div class="container">
+        <h1 class="title">Base de Datos</h1>
+        <div class="navbar">
+            <a href="/" class="button">Inicio</a>
+            <a href="/category" class="button">Categoría</a>
+            <a href="/film_category" class="button">Categoría de Películas</a>
+            <a href="/film" class="button">Películas</a>
+            <a href="/language" class="button">Idiomas</a>
+            <a href="/inventory" class="button">Inventario</a>
+            <a href="/customer" class="button">Clientes</a>
+            <a href="/payment" class="button">Pagos</a>
+            <!-- Agrega más enlaces según sea necesario -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <img class="footer-img" src="{{ url_for('static', filename='images/CUINIQUE.png') }}" alt="Imagen Izquierda">
+        <p> INSTITUTO TECNOLÓGICO DEL SUR DE APATZINGAN </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.center-img {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    max-width: none; /* Elimina la restricción máxima de ancho */
+    height: 200%; /* La altura se ajustará automáticamente para mantener la proporción original */
+    display: block;
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #1a396a;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 1px; 
+    font-style: italic;
+    color: #fff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    text-decoration: none;
+    color: #000000;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.button:hover {
+    background-color: #ccc;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1a396a;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    align-items: center; /* Centra los elementos verticalmente en el contenedor */
+    justify-content: center; /* Centra los elementos horizontalmente en el contenedor */
+    text-align: center; /* Centra el texto horizontalmente dentro de su contenedor */
+}
+
+.footer-img {
+    max-width: 80px; /* Ajusta el ancho de la imagen según tus necesidades */
+    margin-right: 10px; /* Espaciado entre la imagen y el texto del pie de página */
+}
+
+.footer p {
+    margin: 0; /* Elimina el margen predeterminado del párrafo */
+}
+
+
+
+
