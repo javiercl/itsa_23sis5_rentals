@@ -1,0 +1,65 @@
+<html> 
+<head> 
+	<title>Rentas de peliculas</title> 
+</head> 
+<body> 
+	<h1>Pais de peliculas</h1> 
+	<table style="border-collapse:collapse;"> 
+        <thead> 
+            <tr> 
+            <th>ID</th> 
+            <th>Pais</th> 
+            <th>Fecha de ultima actualización</th>  
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:1px solid black">{{ row[0] }}</td> 
+                <td style="border:1px solid black">{{ row[1] }}</td> 
+                <td style="border:1px solid black">{{ row[2] }}</td> 
+                <td style="border:1px solid black"> 
+                    <form action="/update" method="post"> 
+                        <input type="hidden" name="country_id" value="{{ row[0] }}"> 
+                        <select name="country"> 
+                            {%for i in data%} 
+                            {%if i[1]==row[1]%}
+                             <option value="{{i[1]}}" selected>{{i[1]}}</option>
+                             {%endif%}
+                             {%if i[1]!=row[1]%}
+                             <option value="{{i[1]}}">{{i[1]}}</option>
+                             {%endif%}
+                             {%endfor%}
+
+                         </select>
+
+                         <select name="country_id"> 
+                            {%for i in data%} 
+                            {%if i[4]==row[5]%}
+                             <option value="{{i[4]}}" selected>{{i[2]}}</option>
+                             {%endif%}
+                             {%if i[4]!=row[5]%}
+                             <option value="{{i[4]}}">{{i[2]}}</option>
+                             {%endif%}
+                             {%endfor%}
+
+                         </select>
+                        <!--<input type="text" name="country" value="{{ row[1] }}"> -->
+                        <input type="submit" value="Actualizar"> 
+                    </form> 
+                    <form action="/country/delete" method="post"> 
+                        <input type="hidden" name="country_id" value="{{ row[0] }}"> 
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table> 
+	<h2>Crear nuevo pais</h2> 
+    <form action="/country/create" method="post"> 
+        <input type="text" name="country" placeholder="Country"> 
+        <input type="submit" value="Crear"> 
+	</form> 
+</body> 
+</html>

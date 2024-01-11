@@ -1,5 +1,5 @@
 from flask import Flask, current_app
-import home, category, film_category,language,film,inventory, customer, payment, city, address, rental
+import home, category, film_category,language,film,inventory, customer, payment, city, address, rental, country
 
 app = Flask(__name__)
 
@@ -73,6 +73,11 @@ app.add_url_rule('/rental','rental', rental.index, defaults={'indexpag': 1}, met
 app.add_url_rule('/rental/create','rental_create', rental.create, methods = ['POST'])
 app.add_url_rule('/rental/update','rental_update', rental.update, methods = ['POST'])
 app.add_url_rule('/rental/delete','rental_delete', rental.delete, methods = ['POST'])
+
+app.add_url_rule('/country','country', country.index, methods = ['GET'])
+app.add_url_rule('/country/create','country_create', country.create, methods = ['POST'])
+app.add_url_rule('/country/update','country_update', country.update, methods = ['POST'])
+app.add_url_rule('/country/delete','country_delete', country.delete, methods = ['POST'])
 
 if __name__ == '__main__':
     app.run(debug=True)
