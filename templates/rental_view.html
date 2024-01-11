@@ -1,0 +1,130 @@
+<html> 
+<head> <title>Movie Rental Table</title> </head> 
+<body> 
+	<h1>Renta de peliculas</h1> 
+    {{ pagination.info }}
+    {{ pagination.links }}
+	<table> 
+
+        <!-- FOR EACH ROW, A TITLE -->
+        <thead> 
+            <tr> 
+                <th style="text-align:center; padding:10"> Rental ID </th> 
+                <th style="text-align:center; padding:10"> Inventory ID </th> 
+                <th style="text-align:center; padding:10"> Staff name </th> 
+                <th style="text-align:center; padding:10"> Customer </th> 
+                <th style="text-align:center; padding:10"> Customer ID </th>
+                <th style="text-align:center; padding:10"> Rented on </th> 
+                <th style="text-align:center; padding:10"> Return date </th> 
+                <th style="text-align:center; padding:10"> Last Update </th>
+                <th style="text-align:center; padding:10"> Editar </th>
+                
+            </tr> 
+        </thead> 
+
+        <!-- NEW CATEGORY SECTION-->
+        <h2>Agregar un Nuevo Registro [Staff ID, Customer ID, Inventory ID ]</h2> 
+        <form action="/rental/create" method="post"> 
+            <!--input  type="text" id="c_staff_id" placeholder="staff-id [1-2] "
+                    style="border:2px solid black; text-align:center; padding:2"-->
+                    <select name="c_staff_id" id="StaffIDCB"
+                    style="border:2px solid black; text-align:center; padding:2">
+                        {% for name in CB_staffID %}
+                        <option value="{{ name[0] }}" > {{ name[0]}}  - {{name[1] }}</option>
+                        {% endfor %}            
+                    </select>
+            <!--input  type="text" name="c_customer_id" placeholder="customer-id"
+                    style="border:2px solid black; text-align:center; padding:2"-->
+                    <select name="c_customer_id" id="CustomerIDCB"
+                    style="border:2px solid black; text-align:center; padding:2">
+                        {% for cli in CB_cust_id %}
+                        <option value="{{ cli[0] }}" > {{ cli[0]}} - {{cli[1] }}</option>
+                        {% endfor %}
+                    </select>
+            <!--input  type="text" name="c_inventory_id" placeholder="inventory-id"
+                    style="border:2px solid black; text-align:center; padding:2"--> 
+                    <select name="c_inventory_id" id="InvIDCB"
+                    style="border:2px solid black; text-align:center; padding:2">
+                        {% for i in CB_invID %}
+                        <option value="{{ i[0] }}" > {{ i[0] }}</option>
+                        {% endfor %}
+                    </select>
+                
+            <input  type="submit" value="Agregar"
+                    style="border:2px solid black; text-align:center; padding:2"> 
+        </form> 
+        <h3> </h3>
+
+        <!-- WHOLE TABLE CONFIGURATION -->
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:2px solid black; text-align:center; padding:10">{{ row[0] }}</td> 
+                <td style="border:2px solid black; text-align:center; padding:10">{{ row[1] }}</td> 
+                <td style="border:2px solid black; text-align:center; padding:10">{{ row[2] }}</td>
+                <td style="border:2px solid black; text-align:center; padding:10">{{ row[3] }}</td> 
+                <td style="border:2px solid black; text-align:center; padding:10">{{ row[4] }}</td>  
+                <td style="border:2px solid black; text-align:center; padding:10">{{ row[5] }}</td>  
+                <td style="border:2px solid black; text-align:center; padding:10">{{ row[6] }}</td>  
+                <td style="border:2px solid black; text-align:center; padding:10">{{ row[7] }}</td>  
+                
+                <!-- LAST BOX ATT THE END OF THE TABLE -->
+                <td style="border:2px solid black; text-align:left; padding:2">     
+                    <!-- UPDATE FORM -->
+                    <form action="/rental/update" method="post"> 
+                        
+                        <select name="upd_staffFN" id="stNameCB"
+                        style="border:2px solid black; text-align:center; padding:2">
+                            {% for name in CB_staffID %}
+                                {% if row[2] == name[1] %}
+                                    <option value="{{ name[1] }}" selected > {{ name[0]}} - {{name[1] }}</option>
+                                {%endif%}           
+                                {% if row[2] != name[1] %}
+                                    <option value="{{ name[1] }}" > {{ name[0]}} - {{name[1] }}</option>
+                                {%endif%}                            
+                            {% endfor %}            
+                        </select>
+                        
+                        <!--input type="text"      name="upd_cli_name" value="{{ row[3] }}"
+                        style="border:2px solid black; text-align:center; padding:2"-->
+                        <select name="upd_cli_name" id="UPDCustomerIDCB"
+                        style="border:2px solid black; text-align:center; padding:2">
+                            {% for cli in CB_CFirstName %}
+                                {% if row[3] == cli[1] %}
+                                    <option value="{{ cli[0] }}" selected > {{ cli[0]}} - {{cli[1] }}</option>
+                                {%endif%}
+                                {% if row[3] != cli[1] %}
+                                    <option value="{{ cli[0] }}" > {{ cli[0]}} - {{cli[1] }}</option>
+                                {%endif%}
+                            {% endfor %}
+                        </select>
+
+                        <input type="hidden"    name="upd_ren_id"   value="{{ row[0] }}"
+                        style="border:2px solid black; text-align:center; padding:2"> 
+                        
+                        <input type="hidden"    name="upd_cli_id"   value="{{ row[4] }}"
+                        style="border:2px solid black; text-align:center; padding:2"> 
+                         
+                        <input type="submit"    value="Actualizar"
+                        style="border:2px solid black; text-align:center; padding:2"> 
+                    
+                    </form>
+
+                    <!-- DELETE FORM -->
+                    <form action="/rental/delete" method="post"> 
+                        <input type="hidden"    name="del_pro_id" value="{{ row[1] }}"
+                        style="border:2px solid black; text-align:center; padding:2"> 
+                        <input type="hidden"    name="del_cli_id" value="{{ row[4] }}"
+                        style="border:2px solid black; text-align:center; padding:2"> 
+                        <input type="submit"    value="Eliminar"
+                        style="border:2px solid black; text-align:center; padding:2"> 
+                    </form>          
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+
+	</table> 
+    {{ pagination.links }}
+</body> 
+</html> 
