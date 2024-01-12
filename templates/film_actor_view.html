@@ -1,0 +1,56 @@
+<html> 
+<head> 
+	<title>Rentas de pelicul</title> 
+</head> 
+<body> 
+	<h1>Actores Peliculas</h1> 
+	<table> 
+        <thead> 
+            
+            <th>Actor_id</th> 
+            <th>Film_id</th> 
+            <th>titulo</th>
+            <th>Actualización</th>
+            <th>Eliminar\Modificar</th>  
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td style="border:1px solid black">{{ row[0] }}</td> 
+                <td style="border:1px solid black">{{ row[1] }}</td> 
+                <td style="border:1px solid black">{{ row[2] }}</td>
+                <td style="border:1px solid black">{{ row[3] }}</td> 
+                <td style="border:1px solid black"> 
+                    <form action="/actor/update" method="post">
+                        <label for="">Actor ID:</label>
+                        <input type="hidden" name="actor_id" value="{{ row[0] }}">
+                        <input type="text" name="Actor_id" value="{{ row[0] }}">
+                        <br>
+                        <label for="">Pelicula ID</label>
+                        <input type="text" name="Film_id" value="{{ row[1] }}">
+                        <br>
+                        <input type="submit" value="Actualizar"> 
+                    </form> 
+                    <form action="/actor/delete" method="post"> 
+                        <input type="hidden" name="actor_id" value="{{ row[0] }}">
+                        <input type="hidden" name="film_id" value="{{ row[1] }}">
+                        <input type="submit" value="Borrar"> 
+                    </form> 
+                </td> 
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+	</table> 
+	<h2>Crear uno nuevo:</h2> 
+    <form action="/actor/create" method="post">
+        <label for="">ID Actor:</label>
+        <input type="text" name="aid" placeholder="Actor ID">
+        <br>
+        <label for="">Pelicula ID</label>
+        <input type="text" name="fid" placeholder="Pelicula ID">
+        <br> 
+        <input type="submit" value="Crear"> 
+	</form> 
+</body> 
+</html> 

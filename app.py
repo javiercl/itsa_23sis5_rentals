@@ -1,5 +1,6 @@
 from flask import Flask, current_app
-import home, category, film_category,language,film,inventory, customer, payment, city, address, rental, country
+import home, category, film_category,language,film,inventory, customer, payment, city, address, rental, country, actor, film_actor
+
 
 app = Flask(__name__)
 
@@ -78,6 +79,16 @@ app.add_url_rule('/country','country', country.index, methods = ['GET'])
 app.add_url_rule('/country/create','country_create', country.create, methods = ['POST'])
 app.add_url_rule('/country/update','country_update', country.update, methods = ['POST'])
 app.add_url_rule('/country/delete','country_delete', country.delete, methods = ['POST'])
+
+app.add_url_rule('/actor','actor', actor.index, methods = ['GET'])
+app.add_url_rule('/actor/create','actor_create', actor.create, methods = ['POST'])
+app.add_url_rule('/actor/update','actor_update', actor.update, methods = ['POST'])
+app.add_url_rule('/actor/delete','actor_delete', actor.delete, methods = ['POST'])
+
+app.add_url_rule('/film_actor','film_actor', film_actor.index, methods = ['GET'])
+app.add_url_rule('/film_actor/create','film_actor_create', film_actor.create, methods = ['POST'])
+app.add_url_rule('/film_actor/update','film_actor_update', film_actor.update, methods = ['POST'])
+app.add_url_rule('/film_actor/delete','film_actor_delete', film_actor.delete, methods = ['POST'])
 
 if __name__ == '__main__':
     app.run(debug=True)
