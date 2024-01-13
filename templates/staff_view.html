@@ -1,0 +1,137 @@
+<html> 
+<head> 
+    <title>STAFF</title> 
+    <style>
+        body {
+            font-size: 14px;
+            background-color: #f5f5f5; /* Gris claro */
+            color: #333; /* Negro */
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2 {
+            color: #333; /* Negro */
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #fff; /* Blanco */
+        }
+        th, td {
+            border: 1px solid #333; /* Negro */
+            padding: 8px;
+            text-align: left;
+        }
+        form {
+            margin: 0;
+            display: inline;
+        }
+        input[type="text"], select {
+            width: 80px;
+        }
+        input[type="submit"] {
+            padding: 5px 10px;
+            cursor: pointer;
+            background-color: #333; /* Negro */
+            color: #fff; /* Blanco */
+            border: none;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #333; /* Negro */
+        }
+    </style>
+</head> 
+<body> 
+    <h1>-STAFF-</h1> 
+    <table> 
+        <thead> 
+            <tr> 
+                <th>id</th> 
+                <th>f_name</th> 
+                <th>l_name</th>  
+                <th>address_id</th>
+                <th>email</th>
+                <th>store_id</th>
+                <th>active</th>
+                <th>username</th>
+            </tr> 
+        </thead> 
+        <tbody> 
+            {% for row in data %} 
+            <tr> 
+                <td>{{ row[0] }}</td> 
+                <td>{{ row[1] }}</td> 
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td> 
+                <td>
+                    <form action="/update" method="post">
+                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
+                        <input type="text" name="email" value="{{ row[4] }}">
+                        <input type="submit" value="Actualizar">
+                    </form>
+                </td>
+                <td>{{ row[5] }}</td>
+                <td>
+                    <form action="/update" method="post">
+                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
+                        <select name="active">
+                            <option value="True" {% if row[6] == True %}selected{% endif %}>True</option>
+                            <option value="False" {% if row[6] == False %}selected{% endif %}>False</option>
+                        </select>
+                        <input type="submit" value="Actualizar">
+                    </form>
+                </td>
+                <td>
+                    <form action="/update" method="post">
+                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
+                        <input type="text" name="username" value="{{ row[7] }}">
+                        <input type="submit" value="Actualizar">
+                    </form>
+                </td>
+            </tr> 
+            {% endfor %} 
+        </tbody> 
+    </table> 
+
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>password</th>
+                <th>last_update</th>
+                <th>picture</th><!--Etiqueta IMG-->
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>
+                    <form action="/update" method="post">
+                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
+                        <input type="text" name="password" value="{{ row[8] }}">
+                        <input type="submit" value="Actualizar">
+                    </form>
+                </td>
+                <td>
+                    <form action="/update" method="post">
+                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
+                        <input type="text" name="last_update" value="{{ row[9] }}">
+                        <input type="submit" value="Actualizar">
+                    </form>
+                </td>
+                <td>{{row[10]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Crea una nueva categoria</h2> 
+    <form action="/create" method="post"> 
+        <input type="text" name="name" placeholder="staff"> 
+        <input type="submit" value="Crear"> 
+    </form> 
+</body> 
+</html>
