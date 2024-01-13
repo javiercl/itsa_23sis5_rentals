@@ -90,5 +90,10 @@ app.add_url_rule('/film_actor/create','film_actor_create', film_actor.create, me
 app.add_url_rule('/film_actor/update','film_actor_update', film_actor.update, methods = ['POST'])
 app.add_url_rule('/film_actor/delete','film_actor_delete', film_actor.delete, methods = ['POST'])
 
+app.add_url_rule('/staff',' staff', staff.index, methods = ['GET'])
+app.add_url_rule('/staff/create','staff_create', staff.create, methods = ['POST'])
+app.add_url_rule('/staff/update','staff_update', staff.update, methods = ['POST'])
+app.add_url_rule('/staff/delete','staff_delete', staff.delete, methods = ['POST'])
+
 if __name__ == '__main__':
     app.run(debug=True)
