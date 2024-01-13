@@ -8,11 +8,11 @@
     {{ pagination.links }}
 	<table style="border-collapse:collapse;"> 
         <thead> 
-            <tr> 
-            <th>Categoria</th> 
-            <th>Pelicula</th> 
-            <th>Fecha de ultima actualización</th>  
-            </tr> 
+            <tr>
+                <th style="padding-right: 30px;">Categoria</th>
+                <th style="padding-right: 30px;">Pelicula</th>
+                <th style="padding-right: 30px;">Fecha de ultima actualización</th>
+            </tr>
         </thead> 
         <tbody> 
             {% for row in data %} 
@@ -56,12 +56,16 @@
             {% endfor %} 
         </tbody> 
 	</table>
-	<h2>Crea una nueva relacion pelicula-categoria</h2> 
-    <form action="/film_category/create" method="post"> 
-        <input type="text" name="film_id" placeholder="Pelicula"> 
-        <input type="text" name="category_id" placeholder="Categoria"> 
-        <input type="submit" value="Crear"> 
-	</form>
+	<h2>Crea una nueva relación película-categoría</h2>
+<form action="/film_category/create" method="post">
+    <label for="film_title">Título de la película:</label>
+    <input type="text" name="film_title" placeholder="Título de la película" required>
+    <br/>
+    <label for="category_name">Nombre de la categoría:</label>
+    <input type="text" name="category_name" placeholder="Nombre de la categoría" required>
+    <br/>
+    <input type="submit" value="Crear">
+</form>
     {{ pagination.links }}
 </body> 
-</html> 
+</html>

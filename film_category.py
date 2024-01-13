@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, g, current_app
+from flask import jsonify, render_template, request, redirect, url_for, g, current_app
 from flask_paginate import Pagination, get_page_parameter
 import psycopg2
 import logging
@@ -53,33 +53,40 @@ def index(page):
 
 
 def create():
-    
-	with current_app.app_context():
-		db = current_app.db
-		user = current_app.user
-		passw = current_app.passw
-		server = current_app.server
-	
- 	# Connect to the database 
-	conn = psycopg2.connect(database=db, user=user, password=passw, host=server, port="5432") 
+    with current_app.app_context():
+        db = current_app.db
+        user = current_app.user
+        passw = current_app.passw
+        server = current_app.server
 
-	cur = conn.cursor() 
+    # Conectarse a la base de datos
+    conn = psycopg2.connect(database=db, user=user, password=passw, host=server, port="5432")
+    cur = conn.cursor()
 
-	# Get the data from the form 
-	film_id = request.form['film_id'] 
-	category_id = request.form['category_id'] 
+    # Obtener los datos del formulario
+    film_title = request.form['film_title']
+    category_name = request.form['category_name']
 
-	# Insert the data into the table 
-	cur.execute(f"INSERT INTO film_category (film_id,category_id) VALUES ({film_id},{category_id})") 
+    # Buscar los IDs correspondientes en la base de datos
+    cur.execute(f"SELECT film_id FROM film WHERE title = %s", (film_title,))
+    film_id = cur.fetchone()
 
-	# commit the changes 
-	conn.commit() 
+    cur.execute(f"SELECT category_id FROM category WHERE name = %s", (category_name,))
+    category_id = cur.fetchone()
 
-	# close the cursor and connection 
-	cur.close() 
-	conn.close() 
+    # Verificar si la película y la categoría existen
+    if film_id is None or category_id is None:
+        return jsonify({'error': 'La película o la categoría no existen'}), 400
 
-	return redirect(url_for('film_category')) 
+    # Insertar la nueva relación película-categoría en la tabla
+    cur.execute("INSERT INTO film_category (film_id, category_id) VALUES (%s, %s)", (film_id[0], category_id[0]))
+
+    # Confirmar los cambios y cerrar la conexión
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return redirect(url_for('film_category'))
 
 
 def update():
@@ -135,4 +142,4 @@ def delete():
 	cur.close() 
 	conn.close() 
 
-	return redirect(url_for('film_category')) 
+	return redirect(url_for('film_category'))

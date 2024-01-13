@@ -9,7 +9,7 @@ user = 'postgres'
 server = 'database-instance-tallerdb2.cmrkck6hngna.us-east-2.rds.amazonaws.com'
 
 # Inicio - Leer el password desde archivo
-f=open("passwd.txt","r")
+f=open("itsa_23sis5_rentals\passwd.txt","r")
 lines=f.readlines()
 passw=lines[0]
 f.close()
