@@ -5,7 +5,7 @@ import home, category, film_category,language,film,inventory, customer, payment,
 app = Flask(__name__)
 
 # Inicio - Leer el password desde archivo
-with open("itsa_23sis5_rentals\passwd.txt", "r") as f:
+with open("passwd.txt", "r") as f:
     lines = f.readlines()
 
 # Fin - Leer el password desde archivo

@@ -1,22 +1,19 @@
-from flask import Flask, render_template, request, redirect, url_for 
+from flask import Flask, render_template, request, redirect, url_for, g, current_app
 import psycopg2 
 import base64
-
+import logging
 app = Flask(__name__) 
 
-db = 'dvdrental'
-user = 'postgres'
-server = 'database-instance-tallerdb2.cmrkck6hngna.us-east-2.rds.amazonaws.com'
 
-# Inicio - Leer el password desde archivo
-f=open("itsa_23sis5_rentals\passwd.txt","r")
-lines=f.readlines()
-passw=lines[0]
-f.close()
-# Fin - Leer el password desde archivo
 
-@app.route('/') 
 def index(): 
+    with current_app.app_context():
+        db = current_app.db
+        user = current_app.user
+        passw = current_app.passw
+        server = current_app.server
+  
+    logging.basicConfig(level=logging.DEBUG)
     # Connect to the database 
     conn = psycopg2.connect(database=db, 
                             user=user, 
@@ -36,12 +33,16 @@ def index():
     cur.close() 
     conn.close() 
 
-    return render_template('index.html', data=datax) 
+    return render_template('staff_view.html', data=datax) 
 
 
-@app.route('/create', methods=['POST']) 
 def create(): 
     # Connect to the database 
+    with current_app.app_context():
+        db = current_app.db
+        user = current_app.user
+        passw = current_app.passw
+        server = current_app.server
     conn = psycopg2.connect(database=db, 
                             user=user, 
                             password=passw, 
@@ -62,11 +63,15 @@ def create():
     cur.close() 
     conn.close() 
 
-    return redirect(url_for('index')) 
+    return redirect(url_for('staff')) 
 
 
-@app.route('/update', methods=['POST']) 
 def update(): 
+    with current_app.app_context():
+        db = current_app.db
+        user = current_app.user
+        passw = current_app.passw
+        server = current_app.server
     # Connect to the database 
     conn = psycopg2.connect(database=db, 
                             user=user, 
@@ -89,10 +94,15 @@ def update():
 
     # commit the changes 
     conn.commit() 
-    return redirect(url_for('index')) 
+    return redirect(url_for('staff')) 
 
 @app.route('/delete', methods=['POST']) 
 def delete(): 
+    with current_app.app_context():
+        db = current_app.db
+        user = current_app.user
+        passw = current_app.passw
+        server = current_app.server
     #Conexion con la base de datos
     conn = psycopg2.connect(database=db, 
                             user=user, 
@@ -111,7 +121,7 @@ def delete():
     conn.close()
     conn.commit() 
 
-    return redirect(url_for('index')) 
+    return redirect(url_for('staff')) 
 
 if __name__ == '__main__': 
     app.run(debug=True)
