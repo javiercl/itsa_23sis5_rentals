@@ -56,40 +56,101 @@
                 <th>store_id</th>
                 <th>active</th>
                 <th>username</th>
+                <th>actions</th>
             </tr> 
-        </thead> 
+        </thead>
+        <!-- MAIN TABLE --> 
         <tbody> 
             {% for row in data %} 
             <tr> 
                 <td>{{ row[0] }}</td> 
-                <td>{{ row[1] }}</td> 
-                <td>{{ row[2] }}</td>
-                <td>{{ row[3] }}</td> 
                 <td>
-                    <form action="/update" method="post">
-                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
-                        <input type="text" name="email" value="{{ row[4] }}">
-                        <input type="submit" value="Actualizar">
-                    </form>
-                </td>
-                <td>{{ row[5] }}</td>
+                    {% for name in CB_staffID %}
+                        {% if row[0] == name[0] %}
+                            <input name="staff_fn" type="visible" value="{{ name[1] }}"
+                            style="border:2px solid black; text-align:center; padding:2">     
+                        {%endif%}
+                    {% endfor %}         
+                </td> 
                 <td>
-                    <form action="/update" method="post">
-                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
-                        <select name="active">
-                            <option value="True" {% if row[6] == True %}selected{% endif %}>True</option>
-                            <option value="False" {% if row[6] == False %}selected{% endif %}>False</option>
-                        </select>
-                        <input type="submit" value="Actualizar">
-                    </form>
+                    {% for name in CB_staffID %}
+                        {% if row[0] == name[0] %}
+                            <input name="staff_ln" type="visible" value="{{ name[2] }}"
+                            style="border:2px solid black; text-align:center; padding:2">     
+                        {%endif%}                    
+                    {% endfor %}   
                 </td>
                 <td>
-                    <form action="/update" method="post">
-                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
-                        <input type="text" name="username" value="{{ row[7] }}">
-                        <input type="submit" value="Actualizar">
+                    <select name="staff_ai" id="StaffAICB"
+                    style="border:2px solid black; text-align:center; padding:2">
+                        {% for name in CB_staffID %}
+                            {% if row[0] == name[0] %}
+                                <option value="{{ name[3] }}" selected >{{ name[3] }}</option>
+                            {%else%}           
+                                <option value="{{ name[3] }}" >{{ name[3] }}</option>
+                            {%endif%}                            
+                        {% endfor %}         
+                    </select>
+                    
+                </td> 
+                <td>
+                    {% for name in CB_staffID %}
+                        {% if row[0] == name[0] %}
+                            <input name="staff_em" type="visible" value="{{ name[4] }}"
+                            style="border:2px solid black; text-align:center; padding:2">     
+                        {%endif%}                    
+                    {% endfor %}
+                </td>
+                <td>
+                    <select name="staff_si" id="StaffstCB"
+                    style="border:2px solid black; text-align:center; padding:2">
+                        {% for name in CB_staffID %}
+                            {% if row[0] == name[0] %}
+                                <option value="{{ name[5] }}" selected > {{name[5] }}</option>
+                            {%else%}
+                                <option value="{{ name[5] }}" > {{name[5] }}</option>
+                            {%endif%}                            
+                        {% endfor %}         
+                    </select>
+                    
+                </td>
+                <td>
+                    <select name="staff_ac" id="StaffacCB"
+                    style="border:2px solid black; text-align:center; padding:2">
+                        {% for name in CB_staffID %}
+                            {% if row[0] == name[0] %}
+                                <option value="{{ name[6] }}" selected > {{name[6] }}</option>
+                            {%else%}
+                                <option value="{{ name[6] }}" > {{name[6] }}</option>
+                            {%endif%}                            
+                        {% endfor %}         
+                    </select>
+
+                </td>
+                <td>
+                    {% for name in CB_staffID %}
+                        {% if row[0] == name[0] %}
+                            <input name="staff_un" type="visible" value="{{ name[7] }}"
+                            style="border:2px solid black; text-align:center; padding:2">     
+                        {%endif%}                    
+                    {% endfor %}   
+
+                </td>
+                
+                <!-- UDPATE FORM -->
+                <td>
+                    <form action="/staff/update" method="POST"><!-- UDPATE FORM -->
+                        <input type="hidden"    name="upd_staff_id"   value="{{ row[0] }}">
+                        <input type="submit"    value="Actualizar"
+                        style="border:2px solid black; text-align:center; padding:2"> 
+                    </form>
+                    <form action="/staff/delete" method="POST"><!-- DELETE FORM -->
+                        <input type="hidden"    name="del_staff_id"   value="{{ row[0] }}">
+                        <input type="submit"    value="Borrar"
+                        style="border:2px solid black; text-align:center; padding:2"> 
                     </form>
                 </td>
+                
             </tr> 
             {% endfor %} 
         </tbody> 
@@ -101,7 +162,8 @@
                 <th>id</th>
                 <th>password</th>
                 <th>last_update</th>
-                <th>picture</th><!--Etiqueta IMG-->
+                <th>picture</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -109,28 +171,58 @@
             <tr>
                 <td>{{ row[0] }}</td>
                 <td>
-                    <form action="/update" method="post">
-                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
-                        <input type="text" name="password" value="{{ row[8] }}">
-                        <input type="submit" value="Actualizar">
-                    </form>
+                    {% for name in CB_staffID %}
+                        {% if row[0] == name[0] %}
+                            <input name="staff_pa" type="visible" value="{{ name[8] }}"
+                            style="border:2px solid black; text-align:center; padding:2">     
+                        {%endif%}                    
+                    {% endfor %} 
                 </td>
-                <td>
-                    <form action="/update" method="post">
-                        <input type="hidden" name="staff_id" value="{{ row[0] }}">
-                        <input type="text" name="last_update" value="{{ row[9] }}">
-                        <input type="submit" value="Actualizar">
-                    </form>
-                </td>
+                <td>{{ row[9] }}</td>
                 <td>{{row[10]}}</td>
+                <td>
+                    <form action="/staff/update" method="post">
+                        <input type="hidden" name="upd2_staff_id" value="{{ row[0] }}">
+                        <input type="submit"    value="Actualizar"
+                        style="border:2px solid black; text-align:center; padding:2"> 
+                    </form>
+                    <form action="/staff/delete" method="post">
+                        <input type="hidden" name="del2_staff_id" value="{{ row[0] }}">
+                        <input type="submit" value="Borrar"
+                        style="border:2px solid black; text-align:center; padding:2"> 
+                    </form>
+
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
     <h2>Crea una nueva categoria</h2> 
-    <form action="/create" method="post"> 
-        <input type="text" name="name" placeholder="staff"> 
+    <form action="/staff/create" method="post"> 
+        <input type="text" name="c_nombre" placeholder="nombre"> 
+        <input type="text" name="c_apellido" placeholder="apellido"> 
+        <select name="c_adress" id="adress_create"
+                    style="border:2px solid black; text-align:center; padding:2">
+                        {% for i in CB_adress %}
+                        <option value="{{ i[0] }}" > {{ i[0] }}</option>
+                        {% endfor %}
+        </select>
+        <input type="text" name="c_email" placeholder="email">  
+        <select name="c_storeid" id="adress_create"
+                    style="border:2px solid black; text-align:center; padding:2">
+                        {% for i in CB_store %}
+                        <option value="{{ i[0] }}" > {{ i[0] }}</option>
+                        {% endfor %}
+        </select>
+        <select name="c_active" id="active_create"
+                    style="border:2px solid black; text-align:center; padding:2">
+                        {% for i in CB_active %}
+                        <option value="{{ i[0] }}" > {{ i[0] }}</option>
+                        {% endfor %}
+        </select>
+        <input type="text" name="c_username" placeholder="username"> 
+        <input type="text" name="c_password" placeholder="password"> 
         <input type="submit" value="Crear"> 
     </form> 
 </body> 
